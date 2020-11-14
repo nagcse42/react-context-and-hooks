@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
+import { BookContext } from "../contexts/BookContext";
 
 const BookList = () => {
   const { isLightTheme, light, dark } = useContext(ThemeContext);
   const theme = isLightTheme ? light : dark;
+  const { books, setBooks } = useContext(BookContext);
 
   return (
     <div
@@ -12,9 +14,14 @@ const BookList = () => {
       style={{ color: theme.syntax, background: theme.bg }}
     >
       <ul>
-        <li style={{ backgroundColor: theme.ui }}>Angular</li>
-        <li style={{ backgroundColor: theme.ui }}>Java</li>
-        <li style={{ backgroundColor: theme.ui }}>React</li>
+        {books.map(book => {
+          return (
+            <li key={book.id} style={{ backgroundColor: theme.ui }}>
+              {" "}
+              {book.title}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
